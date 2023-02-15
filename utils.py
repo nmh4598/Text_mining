@@ -85,8 +85,8 @@ def sentiment_analysis(tweet):
         """
         return TextBlob(text).sentiment.polarity
 
-    tweet["TextBlob_Subjectivity"] = tweet["text"].apply(getSubjectivity)
-    tweet["TextBlob_Polarity"] = tweet["text"].apply(getPolarity)
+    tweet["TextBlob_Subjectivité"] = tweet["text"].apply(getSubjectivity)
+    tweet["TextBlob_Polarité"] = tweet["text"].apply(getPolarity)
     
     
     def getAnalysis_polarity(score):
@@ -101,8 +101,8 @@ def sentiment_analysis(tweet):
             return "Très objectif et factuel"
         else:
             return "Très subjectif et opiniâtre"
-    tweet["Subjectivity"] = tweet["TextBlob_Subjectivity"].apply(getAnalysis_subjectivity)
-    tweet["Polarity"] = tweet["TextBlob_Polarity"].apply(getAnalysis_polarity)
+    tweet["Subjectivité"] = tweet["TextBlob_Subjectivité"].apply(getAnalysis_subjectivity)
+    tweet["Polarité"] = tweet["TextBlob_Polarité"].apply(getAnalysis_polarity)
     return tweet
 
 
