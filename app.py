@@ -40,10 +40,8 @@ with st.sidebar:
     selected_entreprises = st.multiselect(
         'Select Entreprises', 
         unique_entreprises, 
-        default = unique_entreprises[0:4]
+        default = unique_entreprises[0]
     )
-    if not selected_entreprises:
-        st.warning('Choisir les entreprises, svp!')
     # Fiter subjectivity
     col1, col2 = st.columns(2)   
     with col1:
@@ -93,7 +91,7 @@ st.markdown("<h1 style='color: #22A7EC;'>Twitter Analytics</h1>", unsafe_allow_h
 tab1, tab2, tab3 = st.tabs(["Analyse de sentiments", "Modélisation par sujets", "Base de données"])
 
 if not selected_entreprises:
-    st.warning('Choisir les entreprises, svp!')
+    st.warning('Veuillez choisir au moins une entreprise !')
 else:
     # Fig1
     fig1 = px.line(grouped_count_tweet, x='date', y='count', color='entreprise', 
