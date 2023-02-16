@@ -88,7 +88,7 @@ print(filtered_data)
 #### Layout 
 # Group and plot the data
 st.markdown("<h1 style='color: #22A7EC;'>Twitter et le CAC 40</h1>", unsafe_allow_html=True)
-tab1, tab2, tab3 = st.tabs(["Analyse de sentiments", "Modélisation par sujets", "Base de données"])
+tab1, tab2 = st.tabs(["Analyse de sentiments", "Base de données"])
 
 if not selected_entreprises:
     st.warning('Veuillez choisir au moins une entreprise !')
@@ -149,5 +149,8 @@ else:
         with col2:
             st.markdown('**Nombre de tweets par subjectivité par entreprises**')
             st.plotly_chart(fig2, use_container_width=True, theme=None)
-    with tab3:
+    with tab2:
         st.dataframe(filtered_data) 
+    
+
+        
