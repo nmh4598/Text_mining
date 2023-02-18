@@ -18,47 +18,48 @@ data_path = Path.cwd().joinpath('data').joinpath('df.tweet.gzip')
 data = pd.read_parquet(data_path)
 data = transform(data)
 data = sentiment_analysis(data)
+data = data.rename(columns = {'entreprise':'Entreprise'})
 
-# Fiter date
+# Filter date
 default_date = datetime(2023, 1, 1)
 
-# Fiter entreprise
-unique_entreprises = data['entreprise'].unique()
+# Filter entreprise
+unique_entreprises = data['Entreprise'].unique()
 
-# Fiter subjectivity
+# Filter subjectivité
 unique_subjectivity = data['Subjectivité'].unique()
 
-# Fiter polarity
+# Filter polarité
 unique_polarity = data['Polarité'].unique()
 
 with st.sidebar:
     img_logo_path = Path.cwd().joinpath('data').joinpath('icon.png')
     logo_image = Image.open(img_logo_path)
     st.sidebar.image(logo_image, width=300)
-    start_date = st.date_input('Start date', value=default_date)
-    end_date = st.date_input('End date')
+    start_date = st.date_input('Date de départ', value=default_date)
+    end_date = st.date_input('Date de fin')
     selected_entreprises = st.multiselect(
-        'Choisir Entreprises', 
+        "Choix d'entreprises", 
         unique_entreprises, 
         default = unique_entreprises[0]
     )
-    # Fiter subjectivity
+    # Filter subjectivité
     col1, col2 = st.columns(2)   
     with col1:
         agree1 = st.checkbox('Subjectivité')
     with col2:
         if agree1:
-            selected_subjectivity = st.radio(
+            selected_subjectivité = st.radio(
                 "Choisir Subjectivité",
                 unique_subjectivity
             )
-    # Fiter polarity
+    # Fiter polarité
     col1, col2 = st.columns(2)   
     with col1:
         agree2 = st.checkbox('Polarité')
     with col2:
         if agree2:
-            selected_polarity = st.radio(
+            selected_polarité = st.radio(
                 "Choisir Polarité",
                 unique_polarity
             )    
@@ -67,23 +68,23 @@ with st.sidebar:
 start_date = pd.to_datetime(start_date)
 end_date = pd.to_datetime(end_date)
 mask1 = (data['date'] >= start_date) & (data['date'] <= end_date)
-mask2 = data['entreprise'].isin(selected_entreprises)
+mask2 = data['Entreprise'].isin(selected_entreprises)
 if agree1 and agree2:
-    mask3 = data['Subjectivité'].isin([selected_subjectivity])
-    mask4 = data['Polarité'].isin([selected_polarity])
+    mask3 = data['Subjectivité'].isin([selected_subjectivité])
+    mask4 = data['Polarité'].isin([selected_polarité])
     filtered_data = data.loc[mask1 & mask2 & mask3 & mask4]
 elif agree1:   
-    mask3 = data['Subjectivité'].isin([selected_subjectivity])
+    mask3 = data['Subjectivité'].isin([selected_subjectivité])
     filtered_data = data.loc[mask1 & mask2 & mask3]
 elif agree2:   
-    mask4 = data['Polarité'].isin([selected_polarity])
+    mask4 = data['Polarité'].isin([selected_polarité])
     filtered_data = data.loc[mask1 & mask2 & mask4] 
 else: 
     filtered_data = data.loc[mask1 & mask2]
     
-grouped_count_tweet = filtered_data.groupby(['entreprise', 'date']).size().reset_index(name='count')
-grouped_count_tweet_subjectivity = filtered_data.groupby(['entreprise','Subjectivité']).size().reset_index(name='count')
-grouped_count_tweet_polarity = filtered_data.groupby(['entreprise','Polarité']).size().reset_index(name='count')
+grouped_count_tweet = filtered_data.groupby(['Entreprise', 'date']).size().reset_index(name='count')
+grouped_count_tweet_subjectivity = filtered_data.groupby(['Entreprise','Subjectivité']).size().reset_index(name='count')
+grouped_count_tweet_polarity = filtered_data.groupby(['Entreprise','Polarité']).size().reset_index(name='count')
 print(filtered_data)
 #### Layout 
 # Group and plot the data
@@ -94,7 +95,7 @@ if not selected_entreprises:
     st.warning('Veuillez choisir au moins une entreprise !')
 else:
     # Fig1
-    fig1 = px.line(grouped_count_tweet, x='date', y='count', color='entreprise', 
+    fig1 = px.line(grouped_count_tweet, x='date', y='count', color='Entreprise', 
                    color_discrete_sequence=px.colors.qualitative.Vivid)
     fig1.update_layout(legend=dict(
         orientation="h",
@@ -104,7 +105,7 @@ else:
         x=1
     ))
     # Fig2
-    fig2 = px.bar(grouped_count_tweet_subjectivity, x="Subjectivité", y="count", color="entreprise"
+    fig2 = px.bar(grouped_count_tweet_subjectivity, x="Subjectivité", y="count", color="Entreprise"
                   ,color_discrete_sequence=px.colors.qualitative.Vivid, text_auto=True)
 
     fig2.update_layout(legend=dict(
@@ -115,7 +116,7 @@ else:
         x=1
     ))
     # Fig3
-    fig3 = px.bar(grouped_count_tweet_polarity, x="Polarité", y="count", color="entreprise"
+    fig3 = px.bar(grouped_count_tweet_polarity, x="Polarité", y="count", color="Entreprise"
                   ,color_discrete_sequence=px.colors.qualitative.Vivid, text_auto=True)
 
     fig3.update_layout(legend=dict(
