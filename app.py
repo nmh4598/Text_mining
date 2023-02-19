@@ -217,7 +217,7 @@ else:
     text = ' '.join(filtered_data['text'].tolist())
     
     # Création du nuage de mots
-    wordcloud = WordCloud(width=600, height=400, background_color='white').generate(text)
+    wordcloud = WordCloud(width=500, height=200, background_color='white').generate(text)
     fig4, x = plt.subplots()
     x.imshow(wordcloud, interpolation='bilinear')
     x.axis('off')
