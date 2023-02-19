@@ -242,7 +242,7 @@ else:
 
         col1, col2 = st.columns(2)
         with col1:
-            st.markdown('**Nombre de tweets par stats par entreprises**')
+            st.markdown('**Nombre de mots par stats par entreprises**')
             st.plotly_chart(fig5, use_container_width=True, theme=None)
         with col2:
             st.markdown('**Nombre de tweets par subjectivité par entreprises**')
