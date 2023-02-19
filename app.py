@@ -261,7 +261,7 @@ else:
         st.markdown('**Les données avant nettoyage**')
         st.dataframe(filtered_data_init) 
         
-        st.markdown('**Les statistiques**')
+        st.markdown('**Les statistiques après nettoyage**')
         st.dataframe(grouped_data_stats) 
         
         st.markdown('**Les données après nettoyage**')
