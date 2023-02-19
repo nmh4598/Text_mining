@@ -236,7 +236,8 @@ else:
     ))
     # Fig6 
     fig6 = px.histogram(data_frequence_mots, x="mots", y="count",
-             color='Entreprise', barmode='group', text_auto=True)
+             color='Entreprise', barmode='group', text_auto=True
+             ,color_discrete_sequence=px.colors.qualitative.Vivid)
     fig6.update_layout(legend=dict(
         orientation="h",
         yanchor="bottom",
