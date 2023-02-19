@@ -32,6 +32,7 @@ Pour installer les packages nécessaires, exécuter la commande suivante :
     virtualenv venv
     source venv/Scripts/activate
     python -m pip install -r requirements.txt
+    python -m spacy download fr_core_news_sm
 ```
 ## Utilisation
 
