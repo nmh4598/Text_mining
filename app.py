@@ -1,7 +1,6 @@
 import pandas as pd 
 import streamlit as st
 from utils import transform
-from utils import sentiment_analysis
 import plotly.express as px
 from datetime import datetime
 from PIL import Image
@@ -14,12 +13,12 @@ import matplotlib.pyplot as plt
 st.set_page_config(page_title='Text Mining', page_icon=':bar_chart:', layout='wide')
 
 # Lire le fichier 
-data_path = Path.cwd().joinpath('data').joinpath('df.tweet.gzip')
-data = pd.read_parquet(data_path)
-data = transform(data)
-data = sentiment_analysis(data)
-data = data.rename(columns = {'entreprise':'Entreprise'})
+path = Path.cwd().joinpath('data')
+path_data = path.joinpath('data_fin.parquet')
+data = pd.read_parquet(path_data) 
+#data_init, data, results = transform(data)
 
+data = data.rename(columns = {'entreprise':'Entreprise'})
 # Filter date
 default_date = datetime(2023, 1, 1)
 
@@ -63,11 +62,12 @@ with st.sidebar:
                 "Choisir Polarité",
                 unique_polarity
             )    
-    
+
 # Filter the data by the selected date range and entreprise 
-start_date = pd.to_datetime(start_date)
-end_date = pd.to_datetime(end_date)
+start_date = pd.Timestamp(start_date)
+end_date = pd.Timestamp(end_date)
 mask1 = (data['date'] >= start_date) & (data['date'] <= end_date)
+
 mask2 = data['Entreprise'].isin(selected_entreprises)
 if agree1 and agree2:
     mask3 = data['Subjectivité'].isin([selected_subjectivité])
@@ -81,11 +81,12 @@ elif agree2:
     filtered_data = data.loc[mask1 & mask2 & mask4] 
 else: 
     filtered_data = data.loc[mask1 & mask2]
-    
+
+#data_init, filtered_data, results = transform(filtered_data)
 grouped_count_tweet = filtered_data.groupby(['Entreprise', 'date']).size().reset_index(name='count')
 grouped_count_tweet_subjectivity = filtered_data.groupby(['Entreprise','Subjectivité']).size().reset_index(name='count')
 grouped_count_tweet_polarity = filtered_data.groupby(['Entreprise','Polarité']).size().reset_index(name='count')
-print(filtered_data)
+
 #### Layout 
 # Group and plot the data
 st.markdown("<h1 style='color: #22A7EC;'>Twitter et le CAC 40</h1>", unsafe_allow_html=True)
