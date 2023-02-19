@@ -101,7 +101,7 @@ unique_subjectivity = data['Subjectivité'].unique()
 unique_polarity = data['Polarité'].unique()
 
 with st.sidebar:
-    img_logo_path = Path.cwd().joinpath('data').joinpath('icon.png')
+    img_logo_path = Path.cwd().joinpath('data').joinpath('img').joinpath('icon.png')
     logo_image = Image.open(img_logo_path)
     st.sidebar.image(logo_image, width=300)
     start_date = st.date_input('Date de départ', value=default_date)
