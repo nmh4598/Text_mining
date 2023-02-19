@@ -130,6 +130,7 @@ with st.sidebar:
                 "Choisir Polarité",
                 unique_polarity
             )    
+    st.markdown("[GitHub](https://github.com/nmh4598/TextMining)")
 
 # Filter the data by the selected date range and entreprise 
 start_date = pd.Timestamp(start_date)
