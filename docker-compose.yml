@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+
+  mariadb:
+    image: mariadb
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: master2
+    ports:
+      - 3306:3306
+    volumes:
+      - /path/on/host:/var/lib/mysql
+
+  pma: 
+    image: phpmyadmin/phpmyadmin:latest
+    restart: unless-stopped
+    ports:
+      - 8889:80
+    environment:
+      - PMA_HOST=mariadb
+      - UPLOAD_LIMIT=300M
+    depends_on:
+      - mariadb
