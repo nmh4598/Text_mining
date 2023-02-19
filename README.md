@@ -16,6 +16,7 @@
  ┣ 📂src
  ┃ ┣ 📜preprocessing.ipynb                 // Script python prétraitement
  ┣ 📜app.py                                // Programme principal
+ ┣ 📜docker-compose.yml                               
  ┣ 📜.gitignore
  ┣ 📜README.md
  ┗ 📜requirements.txt                      // Packages Pythons nécessaires

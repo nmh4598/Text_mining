@@ -24,9 +24,8 @@ class Stats_desc:
         self.n_mentions = 0 # Nombre de mentions supprimés 
         self.n_hashtags = 0 # Nombre de hashtags supprimés 
         self.n_stopwords = 0 # Nombre de stopwords supprimés
-        self.data_stats = None # Les dataframes statistiques dé données final
-        self.data_text = None # Les lists des lists tous les mots 
-        
+        self.data_stats = None # Une dataframe: statistiques dé données final
+        self.frequence_mots = None # Une dataframe: fréquence des mots 
     def stats(self):  
         def counts(data):     
             word_counts = [len(s.split()) for s in self.data['text'].tolist()]
