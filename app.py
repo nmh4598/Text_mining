@@ -9,6 +9,8 @@ import matplotlib
 import matplotlib.pyplot as plt
 import gensim
 from collections import Counter
+from PIL import Image
+import stylecloud 
 
 # Class pour faire les statistiques descriptives et les fréquence des mots 
 class Stats_desc:
@@ -223,6 +225,12 @@ else:
     x.axis('off')
     x.set_title("")
     
+    stylecloud.gen_stylecloud(text = text ,                          
+              icon_name='fab fa-twitter',
+              palette='colorbrewer.qualitative.Paired_3', #https://jiffyclub.github.io/palettable/
+              background_color='white',
+              gradient='horizontal')
+    
     # Fig5 
     fig5 = px.histogram(data_stats_melts, x="Entreprise", y="count",
              color='Stats', barmode='group', text_auto=True)
@@ -265,7 +273,9 @@ else:
         col1, col2 = st.columns(2)
         with col1:
             st.markdown('**Nuage de mots**')
-            st.pyplot(fig4)
+            #st.pyplot(fig4)           
+            image = Image.open('stylecloud.png')
+            st.image(image)
         with col2:
             st.markdown('**Fréquence des mots par entreprises**')
             st.plotly_chart(fig6, use_container_width=True, theme=None)
