@@ -225,12 +225,25 @@ else:
     
     # Fig5 
     fig5 = px.histogram(data_stats_melts, x="Entreprise", y="count",
-             color='Stats', barmode='group')
+             color='Stats', barmode='group', text_auto=True)
     
+    fig5.update_layout(legend=dict(
+        orientation="h",
+        yanchor="bottom",
+        y=1.02,
+        xanchor="right",
+        x=1
+    ))
     # Fig6 
     fig6 = px.histogram(data_frequence_mots, x="mots", y="count",
-             color='Entreprise', barmode='group')
-    
+             color='Entreprise', barmode='group', text_auto=True)
+    fig6.update_layout(legend=dict(
+        orientation="h",
+        yanchor="bottom",
+        y=1.02,
+        xanchor="right",
+        x=1
+    ))
     with tab1:
         col1, col2 = st.columns(2)
         with col1:
