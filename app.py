@@ -1,16 +1,18 @@
 import pandas as pd 
 import streamlit as st
 import plotly.express as px
+import matplotlib
+import matplotlib.pyplot as plt
+import gensim
+import stylecloud 
+
+from collections import Counter
+from PIL import Image
 from datetime import datetime
 from PIL import Image
 from pathlib import Path
 from wordcloud import WordCloud
-import matplotlib
-import matplotlib.pyplot as plt
-import gensim
-from collections import Counter
-from PIL import Image
-import stylecloud 
+
 
 # Class pour faire les statistiques descriptives et les fréquence des mots 
 class Stats_desc:
@@ -75,19 +77,21 @@ class Stats_desc:
 # Setting 
 st.set_page_config(page_title='Text Mining', page_icon=':bar_chart:', layout='wide')
 
-# Lire le fichier 
-path = Path.cwd().joinpath('data')
+# Lire le fichier avant nettoyage
+path_input = Path.cwd().joinpath('data')
 
-path_data_init = path.joinpath('data_init.parquet')
-data_init = pd.read_parquet(path_data_init) 
+path_data_input = path_input.joinpath('data_init.parquet')
 
-path_data = path.joinpath('data_fin.parquet')
-data = pd.read_parquet(path_data) 
+data_init = pd.read_parquet(path_data_input) 
 
 data_init = data_init.rename(columns = {'entreprise':'Entreprise'})
 data_init['date'] = pd.to_datetime(data_init['date']).dt.date
-print(data_init)
-print(data)
+
+# Lire les données après nettoyage
+path_output = Path.cwd().joinpath('outputs')
+path_data_output = path_output.joinpath('data_fin.parquet')
+
+data = pd.read_parquet(path_data_output) 
 data = data.rename(columns = {'entreprise':'Entreprise'})
 default_date = datetime(2023, 1, 1)
 

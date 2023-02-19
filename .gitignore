@@ -108,6 +108,7 @@ env/
 venv/
 ENV/
 env.bak/
+myenv3.9/
 venv.bak/
 
 # Spyder project settings
