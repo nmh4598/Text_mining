@@ -104,7 +104,7 @@ with st.sidebar:
     logo_image = Image.open(img_logo_path)
     st.sidebar.image(logo_image, width=300)
     start_date = st.date_input('Date de départ', value=default_date)
-    end_date = st.date_input('Date de fin')
+    end_date = st.date_input('Date de fin', value=datetime(2023, 2, 19))
     selected_entreprises = st.multiselect(
         "Choix d'entreprises", 
         unique_entreprises, 
