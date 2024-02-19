@@ -223,17 +223,17 @@ else:
     text = ' '.join(filtered_data['text'].tolist())
     
     # Création du nuage de mots
-    wordcloud = WordCloud(width=1100, height=500, background_color='white').generate(text)
-    fig4, x = plt.subplots()
-    x.imshow(wordcloud, interpolation='bilinear')
-    x.axis('off')
-    x.set_title("")
+    # wordcloud = WordCloud(width=1100, height=500, background_color='white').generate(text)
+    # fig4, x = plt.subplots()
+    # x.imshow(wordcloud, interpolation='bilinear')
+    # x.axis('off')
+    # x.set_title("")
     
-    stylecloud.gen_stylecloud(text = text ,                          
-              icon_name='fab fa-twitter',
-              palette='colorbrewer.qualitative.Paired_3', #https://jiffyclub.github.io/palettable/
-              background_color='white',
-              gradient='horizontal')
+    # stylecloud.gen_stylecloud(text = text ,                          
+    #           icon_name='fab fa-twitter',
+    #           palette='colorbrewer.qualitative.Paired_3', #https://jiffyclub.github.io/palettable/
+    #           background_color='white',
+    #           gradient='horizontal')
     
     # Fig5 
     fig5 = px.histogram(data_stats_melts, x="Entreprise", y="count",
@@ -274,15 +274,14 @@ else:
             st.markdown('**Nombre de tweets par subjectivité par entreprises**')
             st.plotly_chart(fig2, use_container_width=True, theme=None)
             
-        col1, col2 = st.columns(2)
-        with col1:
-            st.markdown('**Nuage de mots**')
-            #st.pyplot(fig4)           
-            image = Image.open('stylecloud.png')
-            st.image(image)
-        with col2:
-            st.markdown('**Fréquence des mots par entreprises**')
-            st.plotly_chart(fig6, use_container_width=True, theme=None)
+        #with col1:
+            # st.markdown('**Nuage de mots**')
+            # #st.pyplot(fig4)           
+            # image = Image.open('stylecloud.png')
+            # st.image(image)
+        
+        st.markdown('**Fréquence des mots par entreprises**')
+        st.plotly_chart(fig6, use_container_width=True, theme=None)
             
     with tab2:
         st.markdown('**Les données avant nettoyage**')
