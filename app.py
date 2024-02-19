@@ -103,8 +103,8 @@ with st.sidebar:
     img_logo_path = Path.cwd().joinpath('data').joinpath('img').joinpath('icon.png')
     logo_image = Image.open(img_logo_path)
     st.sidebar.image(logo_image, width=300)
-    start_date = st.date_input('Date de départ', value=default_date)
-    end_date = st.date_input('Date de fin', value=datetime(2023, 2, 19))
+    start_date = st.date_input('Date de départ', value= pd.Timestamp(2023, 1, 1))
+    end_date = st.date_input('Date de fin', value= pd.Timestamp(2023, 2, 19))
     selected_entreprises = st.multiselect(
         "Choix d'entreprises", 
         unique_entreprises, 
@@ -135,7 +135,7 @@ with st.sidebar:
 # Filter the data by the selected date range and entreprise 
 start_date = pd.Timestamp(start_date)
 end_date = pd.Timestamp(end_date)
-mask1 = (data_init['date'] >= pd.Timestamp(start_date)) & (data_init['date'] <= pd.Timestamp(end_date))
+mask1 = (data_init['date'] >= start_date) & (data_init['date'] <= end_date)
 
 mask2 = data['Entreprise'].isin(selected_entreprises)
 if agree1 and agree2:
