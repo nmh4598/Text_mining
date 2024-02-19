@@ -135,7 +135,7 @@ with st.sidebar:
 # Filter the data by the selected date range and entreprise 
 start_date = pd.Timestamp(start_date)
 end_date = pd.Timestamp(end_date)
-mask1 = (data_init['date'] >= start_date) & (data_init['date'] <= end_date)
+mask1 = (data_init['date'] >= pd.Timestamp(start_date)) & (data_init['date'] <= pd.Timestamp(end_date))
 
 mask2 = data['Entreprise'].isin(selected_entreprises)
 if agree1 and agree2:
